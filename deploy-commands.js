@@ -6,38 +6,38 @@ const GUILD_ID = "1255400540880506880";
 
 const commands = [
     new SlashCommandBuilder()
-        .setName("balance")
-        .setDescription("Xem số coin"),
+        .setName("money")
+        .setDescription("Show your coin"),
 
     new SlashCommandBuilder()
         .setName("click")
-        .setDescription("Click kiếm coin"),
+        .setDescription("Click to earn coin"),
 
     new SlashCommandBuilder()
         .setName("daily")
-        .setDescription("Nhận thưởng ngày"),
+        .setDescription("Daily"),
 
     new SlashCommandBuilder()
-        .setName("coin")
-        .setDescription("Tung đồng xu")
+        .setName("coinflip")
+        .setDescription("CoinFlip")
         .addStringOption(o =>
-            o.setName("chon")
-                .setDescription("sấp hoặc ngửa")
+            o.setName("choose")
+                .setDescription("heads or tails")
                 .setRequired(true)
                 .addChoices(
-                    { name: "Sấp", value: "sap" },
-                    { name: "Ngửa", value: "ngua" }
+                    { name: "heads", value: "Heads" },
+                    { name: "tails", value: "Heads" }
                 )
         )
         .addIntegerOption(o =>
-            o.setName("tien")
-                .setDescription("Số coin cược")
+            o.setName("money")
+                .setDescription("Ammount")
                 .setRequired(true)
         ),
 
     new SlashCommandBuilder()
         .setName("top")
-        .setDescription("Bảng xếp hạng")
+        .setDescription("Top")
 ].map(c => c.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);

@@ -29,7 +29,7 @@ function getUser(id) {
 function formatTime(ms) {
     const h = Math.floor(ms / 3600000);
     const m = Math.floor((ms % 3600000) / 60000);
-    return `${h} giờ ${m} phút`;
+    return `${h} hours ${m} minutes`;
 }
 
 client.on("interactionCreate", async interaction => {
@@ -37,15 +37,15 @@ client.on("interactionCreate", async interaction => {
 
     const user = getUser(interaction.user.id);
 
-    if (interaction.commandName === "balance") {
-        return interaction.reply(`💰 Bạn có ${user.money} coin`);
+    if (interaction.commandName === "money") {
+        return interaction.reply(`💰 You have ${user.money} coins`);
     }
 
     if (interaction.commandName === "click") {
         const earn = Math.floor(Math.random() * 10) + 5;
         user.money += earn;
         saveData();
-        return interaction.reply(`🖱 Bạn kiếm được ${earn} coin`);
+        return interaction.reply(`🖱 You earn ${earn} coin`);
     }
 
     if (interaction.commandName === "daily") {
@@ -54,7 +54,7 @@ client.on("interactionCreate", async interaction => {
 
         if (now - user.lastDaily < cd) {
             return interaction.reply({
-                content: `⏳ Còn ${formatTime(cd - (now - user.lastDaily))}`,
+                content: `⏳ After ${formatTime(cd - (now - user.lastDaily))}`,
                 ephemeral: true
             });
         }
@@ -63,24 +63,24 @@ client.on("interactionCreate", async interaction => {
         user.money += reward;
         user.lastDaily = now;
         saveData();
-        return interaction.reply(`🎁 Nhận ${reward} coin`);
+        return interaction.reply(`🎁 Reward ${reward} coins`);
     }
 
-    if (interaction.commandName === "coin") {
-        const choice = interaction.options.getString("chon");
-        const bet = interaction.options.getInteger("tien");
+    if (interaction.commandName === "coinflip") {
+        const choice = interaction.options.getString("choose");
+        const bet = interaction.options.getInteger("money");
 
         if (user.money < bet)
-            return interaction.reply({ content: "❌ Không đủ tiền", ephemeral: true });
+            return interaction.reply({ content: "❌ Don't have enough coins", ephemeral: true });
 
-        const result = Math.random() < 0.5 ? "sap" : "ngua";
+        const result = Math.random() < 0.5 ? "heads" : "tails";
 
         if (choice === result) {
             user.money += bet;
-            interaction.reply(`🪙 ${result.toUpperCase()} — THẮNG +${bet}`);
+            interaction.reply(`🪙 ${result.toUpperCase()} — You Win +${bet}`);
         } else {
             user.money -= bet;
-            interaction.reply(`🪙 ${result.toUpperCase()} — THUA -${bet}`);
+            interaction.reply(`🪙 ${result.toUpperCase()} — You Lose -${bet}`);
         }
         saveData();
     }
