@@ -1,3 +1,5 @@
+require("./server");
+
 const { Client, GatewayIntentBits } = require("discord.js");
 const fs = require("fs");
 
