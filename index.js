@@ -99,4 +99,19 @@ client.on("interactionCreate", async interaction => {
 });
 
 
+client.on("ready", () => {
+    console.log(`BOT ONLINE: ${client.user.tag}`);
+});
+
+client.on("error", err => console.log("Discord Error:", err));
+process.on("unhandledRejection", err => console.log("Promise Error:", err));
+
+if (!process.env.TOKEN) {
+    console.log("❌ TOKEN NOT FOUND IN ENVIRONMENT");
+} else {
+    console.log("🔑 TOKEN FOUND, LOGGING IN...");
+}
+console.log("TOKEN ENV =", process.env.TOKEN ? "FOUND" : "NOT FOUND");
+console.log("Deploying Discord Bot...");
+
 client.login(process.env.TOKEN);

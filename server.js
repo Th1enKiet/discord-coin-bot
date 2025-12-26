@@ -1,12 +1,10 @@
 const express = require("express");
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-
 app.get("/", (req, res) => {
-  res.send("Bot is running!");
+  res.send("Discord bot is running");
 });
 
-app.listen(PORT, () => {
-  console.log("Fake web server running on port " + PORT);
+app.listen(process.env.PORT || 10000, () => {
+  console.log("Fake web server running on port 10000");
 });
